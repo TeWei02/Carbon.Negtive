@@ -77,7 +77,7 @@ export default function SlideViewer() {
       </div>
 
       {loading ? (
-        <div className="card p-12 text-center" style={{ color: "var(--muted)" }}>載入中...</div>
+      <div className="card p-12 text-center" role="status" aria-live="polite" style={{ color: "var(--muted)" }}>載入中...</div>
       ) : slides.length === 0 ? (
         <div className="card p-12 text-center" style={{ color: "var(--muted)" }}>請選擇一個簡報檔案</div>
       ) : (

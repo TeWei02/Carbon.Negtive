@@ -5,12 +5,13 @@ import path from "path";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const file = searchParams.get("file");
-  if (!file || file.includes("..") || !file.endsWith(".md")) {
+  if (!file || !file.endsWith(".md")) {
     return NextResponse.json({ error: "Invalid file" }, { status: 400 });
   }
-  const slidesDir = path.join(process.cwd(), "public", "slides");
-  const filePath = path.join(slidesDir, file);
-  if (!filePath.startsWith(slidesDir)) {
+  const slidesDir = path.resolve(process.cwd(), "public", "slides");
+  const filePath = path.resolve(slidesDir, file);
+  // Ensure the resolved path is strictly inside the slides directory
+  if (!filePath.startsWith(slidesDir + path.sep) && filePath !== slidesDir) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
   try {

@@ -106,8 +106,8 @@ export default function CarbonCalculator() {
           <h2 className="font-semibold text-lg">參數設定</h2>
 
           <div>
-            <label className="block text-sm mb-2" style={{ color: "var(--muted)" }}>負碳技術類型</label>
-            <select value={params.technologyType} onChange={(e) => update("technologyType", e.target.value)}>
+            <label htmlFor="tech-type" className="block text-sm mb-2" style={{ color: "var(--muted)" }}>負碳技術類型</label>
+            <select id="tech-type" value={params.technologyType} onChange={(e) => update("technologyType", e.target.value)}>
               {Object.entries(TECH_FACTORS).map(([k, v]) => (
                 <option key={k} value={k}>{v.label}</option>
               ))}
@@ -115,42 +115,42 @@ export default function CarbonCalculator() {
           </div>
 
           <div>
-            <label className="block text-sm mb-2" style={{ color: "var(--muted)" }}>
+            <label htmlFor="years-range" className="block text-sm mb-2" style={{ color: "var(--muted)" }}>
               年限：<strong style={{ color: "var(--foreground)" }}>{params.years} 年</strong>
             </label>
-            <input type="range" min="1" max="50" value={params.years}
-              onChange={(e) => update("years", e.target.value)} className="w-full" />
+            <input id="years-range" type="range" min="1" max="50" value={params.years}
+              onChange={(e) => update("years", e.target.value)} className="w-full" aria-label={`年限：${params.years} 年`} />
           </div>
 
           <div>
-            <label className="block text-sm mb-2" style={{ color: "var(--muted)" }}>
+            <label htmlFor="production-tons" className="block text-sm mb-2" style={{ color: "var(--muted)" }}>
               年產量（噸）
             </label>
-            <input type="number" min="1" value={params.biochartTons}
+            <input id="production-tons" type="number" min="1" value={params.biochartTons}
               onChange={(e) => update("biochartTons", e.target.value)} />
           </div>
 
           <div>
-            <label className="block text-sm mb-2" style={{ color: "var(--muted)" }}>
+            <label htmlFor="carbon-price-range" className="block text-sm mb-2" style={{ color: "var(--muted)" }}>
               碳價（USD/tCO₂）：<strong style={{ color: "var(--foreground)" }}>${params.carbonPrice}</strong>
             </label>
-            <input type="range" min="0" max="300" step="5" value={params.carbonPrice}
-              onChange={(e) => update("carbonPrice", e.target.value)} className="w-full" />
+            <input id="carbon-price-range" type="range" min="0" max="300" step="5" value={params.carbonPrice}
+              onChange={(e) => update("carbonPrice", e.target.value)} className="w-full" aria-label={`碳價：$${params.carbonPrice} USD/tCO₂`} />
           </div>
 
           <div>
-            <label className="block text-sm mb-2" style={{ color: "var(--muted)" }}>
+            <label htmlFor="discount-rate-range" className="block text-sm mb-2" style={{ color: "var(--muted)" }}>
               折現率（%）：<strong style={{ color: "var(--foreground)" }}>{params.discountRate}%</strong>
             </label>
-            <input type="range" min="0" max="20" step="0.5" value={params.discountRate}
-              onChange={(e) => update("discountRate", e.target.value)} className="w-full" />
+            <input id="discount-rate-range" type="range" min="0" max="20" step="0.5" value={params.discountRate}
+              onChange={(e) => update("discountRate", e.target.value)} className="w-full" aria-label={`折現率：${params.discountRate}%`} />
           </div>
 
           <div>
-            <label className="block text-sm mb-2" style={{ color: "var(--muted)" }}>
+            <label htmlFor="production-cost" className="block text-sm mb-2" style={{ color: "var(--muted)" }}>
               每噸生產成本（USD）
             </label>
-            <input type="number" min="0" value={params.productionCostPerTon}
+            <input id="production-cost" type="number" min="0" value={params.productionCostPerTon}
               onChange={(e) => update("productionCostPerTon", e.target.value)} />
           </div>
         </div>

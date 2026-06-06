@@ -1,82 +1,82 @@
-# 🌿 負碳褶學 — Negative Carbon Technology Platform
+# Carbon.Negtive — Negative Carbon Technology Platform
 
-一個關於**負碳技術**（生物炭、DAC、強化岩石風化、藍碳）的互動式學習網站，使用 **Next.js 16 + TypeScript + Tailwind CSS** 構建，採用深色主題設計。
+[![Next.js](https://img.shields.io/badge/Next.js-16-%23000000?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-%233178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-%2306B6D4?logo=tailwindcss)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 📚 頁面結構
+An interactive educational platform exploring **negative carbon technologies**—biochar, direct air capture (DAC), enhanced rock weathering (ERW), and blue carbon. Built with Next.js 16 App Router + TypeScript + Tailwind CSS, featuring a dark theme.
 
-| 頁面 | 路徑 | 說明 |
-|------|------|------|
-| 🌱 簡介 | `/` | 負碳技術總覽、生物炭介紹、主要技術比較 |
-| ⚡ 互動工具 | `/tools` | 輸入年限、碳價、產量，估算 NPV 與總減碳量，圖表呈現 |
-| 📋 案例展示 | `/cases` | 全球 6 個負碳技術應用案例（6 國、5 種技術） |
-| 📊 簡報瀏覽 | `/slides` | Markdown 投影片瀏覽，支援鍵盤翻頁 |
+## Pages
 
-## 🚀 快速開始
+| Page | Route | Description |
+|------|-------|-------------|
+| Home | `/` | Technology overview, biochar introduction, comparison table |
+| Interactive Tools | `/tools` | Parameterized NPV & carbon removal calculator with charts |
+| Case Studies | `/cases` | 6 real-world implementations across 6 countries, 5 technologies |
+| Slides | `/slides` | Markdown-based presentation viewer with keyboard navigation |
+
+## Quick Start
 
 ```bash
-# 安裝相依套件
 npm install
-
-# 啟動開發伺服器
 npm run dev
-
-# 開啟瀏覽器
-# http://localhost:3000
+# Open http://localhost:3000
 ```
 
-## 🔧 技術棧
+## Carbon Calculator
 
-- **框架**: Next.js 16 (App Router)
-- **語言**: TypeScript
-- **樣式**: Tailwind CSS v4（深色主題）
-- **圖表**: Recharts（面積圖、長條圖、折線圖）
-- **Markdown**: react-markdown + remark-gfm
+Supports 4 negative carbon technologies with adjustable parameters:
 
-## ⚡ 互動計算工具
+| Technology | Sequestration Factor |
+|-----------|---------------------|
+| Biochar | 2.6 tCO₂ / ton |
+| Direct Air Capture (DAC) | 1.0 tCO₂ / unit |
+| Enhanced Rock Weathering (ERW) | 0.9 tCO₂ / ton |
+| Blue Carbon | 7.5 tCO₂ / hectare / year |
 
-支援 4 種負碳技術的參數估算：
+**Tunable inputs**: project duration (1–50 years), annual output, carbon price (0–300 USD/tCO₂), discount rate, production cost.
 
-| 技術 | 固碳係數 |
-|------|---------|
-| 生物炭 (Biochar) | 2.6 tCO₂/噸 |
-| 直接空氣捕獲 (DAC) | 1.0 tCO₂/單位 |
-| 強化岩石風化 (ERW) | 0.9 tCO₂/噸 |
-| 藍碳 (Blue Carbon) | 7.5 tCO₂/公頃/年 |
+**Outputs**: annual sequestration chart, annual revenue chart, cumulative NPV chart, detailed data table.
 
-可調整參數：年限（1–50 年）、年產量、碳價（0–300 USD/tCO₂）、折現率、生產成本  
-輸出：年度碳封存圖、年度收益圖、累計 NPV 圖、詳細數據表
+## Tech Stack
 
-## 📊 簡報檔案
+| Component | Technology |
+|-----------|-----------|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 (dark theme) |
+| Charts | Recharts (area, bar, line) |
+| Markdown | react-markdown + remark-gfm |
 
-簡報以 Markdown 格式存放於 `public/slides/`，每個 `---` 分隔符代表一張投影片：
+## Slide System
 
-- `intro.md` — 負碳褶學簡介（10 張投影片）
-- `biochar-economics.md` — 生物炭經濟學（10 張投影片）
-
-新增簡報：在 `public/slides/` 新增 `.md` 檔案，在 frontmatter 中加入 `title:` 即可。
+Slides are stored as Markdown in `public/slides/`. Each `---` separator defines a new slide:
 
 ```markdown
 ---
-title: 我的簡報標題
+title: My Presentation
 ---
 
-# 第一張投影片
-
-內容...
+# Slide 1
+Content...
 
 ---
 
-# 第二張投影片
-
-內容...
+# Slide 2
+Content...
 ```
 
-## 🌍 部署
+Add new `.md` files to `public/slides/` with a `title` in the frontmatter.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-
-本專案可直接部署至 Vercel：
+## Deployment
 
 ```bash
 npm run build
 ```
+
+Deploy-ready on Vercel or any Node.js host.
+
+## License
+
+MIT

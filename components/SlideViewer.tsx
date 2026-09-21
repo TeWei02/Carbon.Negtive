@@ -3,15 +3,21 @@ import { useState, useEffect, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 interface SlideFile {
   file: string;
   title: string;
+  content: string;
 }
 
 function parseSlides(content: string): string[] {
   // Remove frontmatter
   const noFrontmatter = content.replace(/^---[\s\S]+?---\n/, "");
-  return noFrontmatter.split(/\n---\n/).map((s) => s.trim()).filter(Boolean);
+  return noFrontmatter
+    .split(/\n---\n/)
+    .map((s) => s.trim())
+    .filter(Boolean);
 }
 
 export default function SlideViewer() {
@@ -21,28 +27,39 @@ export default function SlideViewer() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loading, setLoading] = useState(false);
 
+  // 簡報內容在建置階段由 scripts/build-slides.mjs 打包成靜態 JSON，
+  // 讓整站可純靜態託管，不需要任何伺服器端 API。
   useEffect(() => {
-    fetch("/api/slides")
+    let cancelled = false;
+    setLoading(true);
+    fetch(`${BASE_PATH}/slides-index.json`)
       .then((r) => r.json())
-      .then((data) => {
-        setSlideFiles(data);
-        if (data.length > 0) setSelectedFile(data[0].file);
+      .then((data: SlideFile[]) => {
+        if (cancelled) return;
+        const list = Array.isArray(data) ? data : [];
+        setSlideFiles(list);
+        if (list.length > 0) setSelectedFile(list[0].file);
       })
-      .catch(() => setSlideFiles([]));
+      .catch(() => {
+        if (!cancelled) setSlideFiles([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
-    if (!selectedFile) return;
-    setLoading(true);
-    fetch(`/api/slides/content?file=${encodeURIComponent(selectedFile)}`)
-      .then((r) => r.json())
-      .then((data) => {
-        const parsed = parseSlides(data.content || "");
-        setSlides(parsed);
-        setCurrentSlide(0);
-      })
-      .finally(() => setLoading(false));
-  }, [selectedFile]);
+    if (!selectedFile) {
+      setSlides([]);
+      return;
+    }
+    const item = slideFiles.find((s) => s.file === selectedFile);
+    setSlides(item ? parseSlides(item.content || "") : []);
+    setCurrentSlide(0);
+  }, [selectedFile, slideFiles]);
 
   const prev = useCallback(() => setCurrentSlide((c) => Math.max(0, c - 1)), []);
   const next = useCallback(() => setCurrentSlide((c) => Math.min(slides.length - 1, c + 1)), [slides.length]);

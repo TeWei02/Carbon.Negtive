@@ -114,12 +114,22 @@ export default function CasesPage() {
         </p>
       </div>
 
+      <div className="card p-5 mb-8">
+        <h2 className="font-semibold mb-2">📌 資料來源與使用說明</h2>
+        <p className="text-sm" style={{ color: "var(--muted)", lineHeight: 1.75 }}>
+          以下案例整理自各計畫的公開資訊與媒體報導（例如 Climeworks、Husk、Carbon Streaming 的官方發布，
+          以及 Microsoft、Stripe 等企業的碳移除採購公告）。卡片中的規模、年減碳量與成效數字為公開報導中的
+          <strong>約略值</strong>，並非本站實測數據，也未經本站獨立查驗；如要用於研究或引用，
+          請以各計畫的原始來源與其第三方查驗報告為準。本站僅作為學習與整理用途。
+        </p>
+      </div>
+
       {/* Stats */}
       <div className="grid grid-cols-4 gap-4 mb-8">
         {[
           { label: "案例總數", val: cases.length },
           { label: "涵蓋國家", val: "6 國" },
-          { label: "總減碳量", val: "2.6M+" },
+          { label: "年減碳量合計", val: "2.6M+" },
           { label: "技術類型", val: "5 種" },
         ].map((s) => (
           <div key={s.label} className="card p-4 text-center">

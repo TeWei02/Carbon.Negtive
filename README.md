@@ -34,6 +34,11 @@ npm run dev
 # Open http://localhost:3000
 ```
 
+### Prerequisites
+
+- Node.js 18+（專案使用 Next.js + TypeScript）
+- `npm run lint` 可先行檢查程式碼風格；`npm run build` 產出正式建置
+
 ## Carbon Calculator
 
 Supports 4 negative carbon technologies with adjustable parameters:
